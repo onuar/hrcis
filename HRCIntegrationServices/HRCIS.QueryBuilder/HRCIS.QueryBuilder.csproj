@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HRC.Foundation">
-      <HintPath>..\..\..\..\Git\HRCReloaded\HAL9000Test\bin\Debug\HRC.Foundation.dll</HintPath>
+      <HintPath>..\..\..\..\dev\hrcis2012\HRCIntegrationServices\ExternalLibs\HRC.Foundation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HRC.Foundation.ConvertionLibrary;
-using System.Data;
 
 namespace HRCIS.QueryBuilder
 {
@@ -13,15 +8,15 @@ namespace HRCIS.QueryBuilder
         {
             switch (dataType)
             {
-                case HRCIS.SchemaLoader.DataType.Undefiened:
+                case SchemaLoader.DataType.Undefiened:
                     return true;
-                case HRCIS.SchemaLoader.DataType.STRING:
+                case SchemaLoader.DataType.STRING:
                     return true;
-                case HRCIS.SchemaLoader.DataType.DATETIME:
+                case SchemaLoader.DataType.DATETIME:
                     return true;
-                case HRCIS.SchemaLoader.DataType.GUID:
+                case SchemaLoader.DataType.GUID:
                     return true;
-                case HRCIS.SchemaLoader.DataType.Char:
+                case SchemaLoader.DataType.Char:
                     return true;
                 case SchemaLoader.DataType.XML:
                     return true;
@@ -68,7 +63,7 @@ namespace HRCIS.QueryBuilder
         {
             switch (dataType)
             {
-                case HRCIS.SchemaLoader.DataType.XML:
+                case SchemaLoader.DataType.XML:
                     return true;
                 default:
                     return false;
@@ -79,7 +74,7 @@ namespace HRCIS.QueryBuilder
         {
             switch (dataType)
             {
-                case HRCIS.SchemaLoader.DataType.XML:
+                case SchemaLoader.DataType.XML:
                     return "CLOB";
                 default:
                     return null;
