@@ -68,7 +68,6 @@ namespace HRCIS.SchemaLoader.Strategies
                             TableName = ConvertionHelper.ConvertValue<string>(dr["TABLE_NAME"])
                         };
 
-
                         tableList.Add(tbl);
                     }
                 }
@@ -112,9 +111,7 @@ namespace HRCIS.SchemaLoader.Strategies
                     }
                 }
 
-                var schema = new HrcSchema();
-                schema.TableName = table.TableName;
-                schema.Columns = columns;
+                var schema = new HrcSchema { TableName = table.TableName, Columns = columns };
 
                 return schema;
             }

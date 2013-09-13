@@ -52,7 +52,7 @@
     <Compile Include="Insert\OracleFunctionQueryBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Insert\InsertQueryBuilder.cs" />
-    <Compile Include="Insert\SQLQueryBuilder.cs" />
+    <Compile Include="Insert\SqlQueryBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HRCIS.DataLoader\HRCIS.DataLoader.csproj">

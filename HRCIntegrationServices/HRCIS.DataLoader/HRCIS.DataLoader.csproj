@@ -55,9 +55,9 @@
     <Compile Include="DataLoader.cs" />
     <Compile Include="Strategies\DataLoaderStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\HRCSchemaData.cs" />
+    <Compile Include="Entities\HrcSchemaData.cs" />
     <Compile Include="Lists\SchemaDataList.cs" />
-    <Compile Include="Strategies\SQLDataLoader.cs" />
+    <Compile Include="Strategies\SqlDataLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HRCIS.SchemaLoader\HRCIS.SchemaLoader.csproj">
