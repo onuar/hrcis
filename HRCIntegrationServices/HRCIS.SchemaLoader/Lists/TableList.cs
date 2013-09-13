@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using HRCIS.SchemaLoader.Entities;
 
-namespace HRCIS.SchemaLoader
+namespace HRCIS.SchemaLoader.Lists
 {
-    public class TableList : List<HRCTable>
+    public class TableList : List<HrcTable>
     {
-        public HRCTable GetTableName(string tableName)
+        public HrcTable GetTableName(string tableName)
         {
-            foreach (var t in this)
-            {
-                if (t.TableName == tableName)
-                    return t;
-            }
-            return null;
+            return this.FirstOrDefault(t => t.TableName == tableName);
         }
     }
 }

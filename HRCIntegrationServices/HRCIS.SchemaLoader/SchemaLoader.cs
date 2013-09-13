@@ -1,11 +1,15 @@
-﻿namespace HRCIS.SchemaLoader
+﻿using HRCIS.SchemaLoader.Entities;
+using HRCIS.SchemaLoader.Lists;
+using HRCIS.SchemaLoader.Strategies;
+
+namespace HRCIS.SchemaLoader
 {
     public class SchemaLoader
     {
         private readonly ISchemaLoaderStrategy _schemaLoaderStrategy;
 
         public SchemaLoader()
-            : this(new SQLSchemaLoader())
+            : this(new SqlSchemaLoader())
         {
 
         }
@@ -19,7 +23,7 @@
             return _schemaLoaderStrategy.GetTableList();
         }
 
-        public HRCSchema GetSchema(HRCTable table)
+        public HrcSchema GetSchema(HrcTable table)
         {
             return _schemaLoaderStrategy.GetSchema(table);
         }

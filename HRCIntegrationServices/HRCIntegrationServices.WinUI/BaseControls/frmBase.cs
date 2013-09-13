@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace HRCIntegrationServices.WinUI.BaseControls
 {
-    public partial class frmBase : Form
+    public partial class FrmBase : Form
     {
-        public frmBase()
+        public FrmBase()
         {
             InitializeComponent();
         }

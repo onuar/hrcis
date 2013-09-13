@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HRCIS.SchemaLoader;
-using System.Data;
+﻿using System.Data;
+using HRCIS.SchemaLoader.Entities;
 
-namespace HRCIS.DataLoader
+namespace HRCIS.DataLoader.Entities
 {
-    public class HRCSchemaData
+    public class HrcSchemaData
     {
-        public HRCSchema Schema { get; set; }
+        public HrcSchema Schema { get; set; }
         public DataTable Datas { get; set; }
     }
 }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using HRCIS.SchemaLoader.Enums;
 
-namespace HRCIS.SchemaLoader
+namespace HRCIS.SchemaLoader.Entities
 {
-    public class HRCColumn
+    public class HrcColumn
     {
         public string ColumnName { get; set; }
         public DataType ColumnDataType { get; set; }

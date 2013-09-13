@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HRCIS.DataLoader.Entities;
 
-namespace HRCIS.DataLoader
+namespace HRCIS.DataLoader.Lists
 {
-    public class SchemaDataList : List<HRCSchemaData>
+    public class SchemaDataList : List<HrcSchemaData>
     {
-        public HRCSchemaData GetSchemaDataByTableName(string tableName)
+        public HrcSchemaData GetSchemaDataByTableName(string tableName)
         {
             return this.FirstOrDefault(sd => sd.Schema.TableName == tableName);
         }

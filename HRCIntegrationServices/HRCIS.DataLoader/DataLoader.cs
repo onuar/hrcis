@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using HRCIS.DataLoader.Lists;
+using HRCIS.DataLoader.Strategies;
+using HRCIS.SchemaLoader.Lists;
 
 namespace HRCIS.DataLoader
 {
     public class DataLoader
     {
-        private SchemaLoader.SchemaList _schemas;
+        private readonly SchemaList _schemas;
         private readonly DataLoaderStrategy _dataLoaderStrategy;
 
-        public DataLoader(SchemaLoader.SchemaList schemas)
-            : this(schemas,new HRCIS.DataLoader.SQLDataLoader())
+        public DataLoader(SchemaList schemas)
+            : this(schemas,new SqlDataLoader())
         { }
 
         public DataLoader(
-            SchemaLoader.SchemaList schemas
+            SchemaList schemas
             , DataLoaderStrategy dataLoaderStrategy)
         {
-            this._dataLoaderStrategy = dataLoaderStrategy;
-            this._schemas = schemas;
+            _dataLoaderStrategy = dataLoaderStrategy;
+            _schemas = schemas;
         }
 
         public SchemaDataList GetSchemaDatas()

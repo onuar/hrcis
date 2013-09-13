@@ -1,4 +1,6 @@
-﻿namespace HRCIS.SchemaLoader.TypeMapping
+﻿using HRCIS.SchemaLoader.Enums;
+
+namespace HRCIS.SchemaLoader.TypeMapping
 {
     public class HrcDbDataType
     {

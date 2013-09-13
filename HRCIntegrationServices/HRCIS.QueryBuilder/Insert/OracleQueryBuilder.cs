@@ -1,24 +1,25 @@
 ﻿using System;
+using HRCIS.SchemaLoader.Enums;
 
-namespace HRCIS.QueryBuilder
+namespace HRCIS.QueryBuilder.Insert
 {
     public class OracleQueryBuilder : InsertQueryStrategy
     {
-        protected override bool HasApostrophe(SchemaLoader.DataType dataType)
+        protected override bool HasApostrophe(DataType dataType)
         {
             switch (dataType)
             {
-                case SchemaLoader.DataType.Undefiened:
+                case DataType.Undefiened:
                     return true;
-                case SchemaLoader.DataType.STRING:
+                case DataType.STRING:
                     return true;
-                case SchemaLoader.DataType.DATETIME:
+                case DataType.DATETIME:
                     return true;
-                case SchemaLoader.DataType.GUID:
+                case DataType.GUID:
                     return true;
-                case SchemaLoader.DataType.Char:
+                case DataType.Char:
                     return true;
-                case SchemaLoader.DataType.XML:
+                case DataType.XML:
                     return true;
                 default:
                     return false;
@@ -59,22 +60,22 @@ namespace HRCIS.QueryBuilder
             return value.ToString();
         }
 
-        public override bool IsDeclareType(SchemaLoader.DataType dataType)
+        public override bool IsDeclareType(DataType dataType)
         {
             switch (dataType)
             {
-                case SchemaLoader.DataType.XML:
+                case DataType.XML:
                     return true;
                 default:
                     return false;
             }
         }
 
-        protected override string GetDataTypeMap(SchemaLoader.DataType dataType)
+        protected override string GetDataTypeMap(DataType dataType)
         {
             switch (dataType)
             {
-                case SchemaLoader.DataType.XML:
+                case DataType.XML:
                     return "CLOB";
                 default:
                     return null;

@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HRCIS.SchemaLoader.Enums;
 
 namespace HRCIS.SchemaLoader.TypeMapping
 {
     public class OracleTypes
     {
-        static List<HrcDbDataType> _types = new List<HrcDbDataType>();
+        static readonly List<HrcDbDataType> _types = new List<HrcDbDataType>();
 
         static OracleTypes()
         {

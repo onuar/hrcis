@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
-using HRCIS.DataLoader;
-using HRCIS.SchemaLoader;
+using HRCIS.DataLoader.Lists;
+using HRCIS.QueryBuilder.Insert;
+using HRCIS.SchemaLoader.Entities;
+using HRCIS.SchemaLoader.Lists;
 using HRC.Library.DBAccessLayer;
 
 namespace HRCIS.Tests
@@ -27,12 +29,12 @@ namespace HRCIS.Tests
         {
             var schemaList = new SchemaList();
             var sLoader = new SchemaLoader.SchemaLoader();
-            schemaList.Add(sLoader.GetSchema(new HRCTable() { TableName = Tools.HrcTestTableName }));
+            schemaList.Add(sLoader.GetSchema(new HrcTable() { TableName = Tools.HrcTestTableName }));
 
             var dLoader = new DataLoader.DataLoader(schemaList);
             SchemaDataList datas = dLoader.GetSchemaDatas();
 
-            var builder = new QueryBuilder.InsertQueryBuilder();
+            var builder = new InsertQueryBuilder();
             string query = builder.GenerateQuery(datas[0]);
             Assert.IsNotNull(query);
         }
@@ -42,12 +44,12 @@ namespace HRCIS.Tests
         {
             var schemaList = new SchemaList();
             var sLoader = new SchemaLoader.SchemaLoader();
-            schemaList.Add(sLoader.GetSchema(new HRCTable() { TableName = Tools.HrcTestTableName }));
+            schemaList.Add(sLoader.GetSchema(new HrcTable() { TableName = Tools.HrcTestTableName }));
 
             var dLoader = new DataLoader.DataLoader(schemaList);
             SchemaDataList datas = dLoader.GetSchemaDatas();
 
-            var builder = new QueryBuilder.InsertQueryBuilder();
+            var builder = new InsertQueryBuilder();
             string query = builder.GenerateQuery(datas[0], true);
 
             using (var db = new DbManager())

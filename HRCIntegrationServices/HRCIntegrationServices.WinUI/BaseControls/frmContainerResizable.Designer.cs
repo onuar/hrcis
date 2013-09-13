@@ -1,6 +1,6 @@
 ﻿namespace HRCIntegrationServices.WinUI.BaseControls
 {
-    partial class frmContainerResizable
+    partial class FrmContainerResizable
     {
         /// <summary>
         /// Required designer variable.
@@ -35,7 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Name = "frmContainerResizable";
+            this.Name = "FrmContainerResizable";
             this.ShowInTaskbar = false;
             this.Text = "frmContainerResizable";
             this.ResumeLayout(false);

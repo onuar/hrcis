@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HRCIS.SchemaLoader;
+﻿using HRCIS.DataLoader.Entities;
+using HRCIS.SchemaLoader.Entities;
 
-namespace HRCIS.QueryBuilder
+namespace HRCIS.QueryBuilder.Insert
 {
     public class InsertQueryBuilder
     {
@@ -12,21 +9,21 @@ namespace HRCIS.QueryBuilder
         private bool _excludeIdentityColumn = false;
 
         public InsertQueryBuilder()
-            : this(new SQLQueryBuilder())
+            : this(new SqlQueryBuilder())
         {
         }
 
         public InsertQueryBuilder(InsertQueryStrategy insertQueryStrategy)
         {
-            _insertQueryStrategy = insertQueryStrategy;
+            this._insertQueryStrategy = insertQueryStrategy;
         }
 
-        public string GenerateQuery(DataLoader.HRCSchemaData data, bool excludeIdentityColumn = false)
+        public string GenerateQuery(HrcSchemaData data, bool excludeIdentityColumn = false)
         {
-            return _insertQueryStrategy.GenerateQuery(data, excludeIdentityColumn);
+            return this._insertQueryStrategy.GenerateQuery(data, excludeIdentityColumn);
         }
 
-        public string GenerateDeleteQuery(HRCSchema schema)
+        public string GenerateDeleteQuery(HrcSchema schema)
         {
             return string.Format("delete from {0};", schema.TableName);
         }

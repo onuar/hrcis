@@ -1,6 +1,6 @@
 ﻿namespace HRCIntegrationServices.WinUI.BaseControls
 {
-    partial class frmContainer
+    partial class FrmContainer
     {
         /// <summary>
         /// Required designer variable.
@@ -36,7 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frmContainer";
+            this.Name = "FrmContainer";
             this.ShowInTaskbar = false;
             this.Text = "frmContainer";
             this.ResumeLayout(false);

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using HRCIS.SchemaLoader.Entities;
+using HRCIS.SchemaLoader.Enums;
+using HRCIS.SchemaLoader.Lists;
 
-namespace HRCIS.SchemaLoader
+namespace HRCIS.SchemaLoader.Strategies
 {
     public interface ISchemaLoaderStrategy
     {
         TableList GetTableList();
-        HRCSchema GetSchema(HRCTable table);
-        DataType GetHRCDataType(string columnDataType);
+        HrcSchema GetSchema(HrcTable table);
+        DataType GetHrcDataType(string columnDataType);
     }
 }

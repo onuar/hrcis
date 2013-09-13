@@ -8,7 +8,7 @@ namespace HRCIS.Tests
 
         internal static void DropCreateTable()
         {
-            using (var db = new DbManager() { KeepConnection = true })
+            using (var db = new DbManager { KeepConnection = true })
             {
                 #region Query
                 string query = string.Format(@"
@@ -46,7 +46,7 @@ namespace HRCIS.Tests
                     ) ON [PRIMARY]
 
 
-                    SET ANSI_PADDING OFF", Tools.HrcTestTableName);
+                    SET ANSI_PADDING OFF", HrcTestTableName);
                 #endregion
                 db.ExecuteNonQuery(query);
             }
@@ -60,7 +60,7 @@ namespace HRCIS.Tests
             IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[{0}]') AND type in (N'U'))
             DROP TABLE [dbo].[{0}]", Tools.HrcTestTableName);
             #endregion
-            using (var db = new DbManager() { KeepConnection = true })
+            using (var db = new DbManager { KeepConnection = true })
             {
                 db.ExecuteNonQuery(query);
             }

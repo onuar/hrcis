@@ -1,6 +1,6 @@
 ﻿namespace HRCIntegrationServices.WinUI.BaseControls
 {
-    partial class frmBase
+    partial class FrmBase
     {
         /// <summary>
         /// Required designer variable.
@@ -35,7 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Name = "frmBase";
+            this.Name = "FrmBase";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmBase";
             this.ResumeLayout(false);

@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using HRCIS.SchemaLoader;
+using HRCIS.SchemaLoader.Entities;
+using HRCIS.SchemaLoader.Enums;
 
-namespace HRCIS.QueryBuilder
+namespace HRCIS.QueryBuilder.Insert
 {
     public class OracleFunctionQueryBuilder
     {
-        public string GenerateCreateSeqAndTrg(HRCSchema schema)
+        public string GenerateCreateSeqAndTrg(HrcSchema schema)
         {
-            HRCColumn identityColumn = schema.Columns.GetIdentityColumnIfExist();
+            HrcColumn identityColumn = schema.Columns.GetIdentityColumnIfExist();
             if (identityColumn == null)
                 throw new Exception("There is no identity column");
             if (identityColumn.ColumnDataType != DataType.INT)

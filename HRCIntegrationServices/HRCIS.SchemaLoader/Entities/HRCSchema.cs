@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using HRCIS.SchemaLoader.Lists;
 
-namespace HRCIS.SchemaLoader
+namespace HRCIS.SchemaLoader.Entities
 {
-    public class HRCSchema : HRCTable
+    public class HrcSchema : HrcTable
     {
         public ColumnList Columns { get; set; }
 
         public override string ToString()
         {
-            return string.Format("{0} ({1})", TableName, (Columns == null ? 0 : Columns.Count));
+            return string.Format("{0} ({1})", this.TableName, (this.Columns == null ? 0 : this.Columns.Count));
         }
     }
 }

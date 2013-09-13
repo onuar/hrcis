@@ -1,29 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-using HRC.Foundation.ConvertionLibrary;
+using HRCIS.SchemaLoader.Enums;
 
-namespace HRCIS.QueryBuilder
+namespace HRCIS.QueryBuilder.Insert
 {
-    public class SQLQueryBuilder : InsertQueryStrategy
+    public class SqlQueryBuilder : InsertQueryStrategy
     {
-        protected override bool HasApostrophe(SchemaLoader.DataType dataType)
+        protected override bool HasApostrophe(DataType dataType)
         {
             switch (dataType)
             {
-                case HRCIS.SchemaLoader.DataType.Undefiened:
+                case DataType.Undefiened:
                     return true;
-                case HRCIS.SchemaLoader.DataType.STRING:
+                case DataType.STRING:
                     return true;
-                case HRCIS.SchemaLoader.DataType.DATETIME:
+                case DataType.DATETIME:
                     return true;
-                case HRCIS.SchemaLoader.DataType.GUID:
+                case DataType.GUID:
                     return true;
-                case HRCIS.SchemaLoader.DataType.Char:
+                case DataType.Char:
                     return true;
-                case SchemaLoader.DataType.XML:
+                case DataType.XML:
                     return true;
                 default:
                     return false;
@@ -40,7 +36,7 @@ namespace HRCIS.QueryBuilder
         }
         protected override string ConvertToDbStringValue(string value)
         {
-            return value.ToString().Replace("'", "''");
+            return value.Replace("'", "''");
         }
         protected override string ConvertToDbDecimalValue(decimal value)
         {
@@ -66,7 +62,7 @@ namespace HRCIS.QueryBuilder
             return value.ToString();
         }
 
-        protected override string GetDataTypeMap(SchemaLoader.DataType dataType)
+        protected override string GetDataTypeMap(DataType dataType)
         {
             return string.Empty;
         }

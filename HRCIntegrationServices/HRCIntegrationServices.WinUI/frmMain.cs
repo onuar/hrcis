@@ -1,26 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using HRCIntegrationServices.WinUI.BaseControls;
 using HRCIS.SchemaLoader;
 using HRCIS.DataLoader;
-using HRCIS.QueryBuilder;
+using HRCIS.DataLoader.Entities;
+using HRCIS.DataLoader.Lists;
+using HRCIS.QueryBuilder.Insert;
+using HRCIS.SchemaLoader.Entities;
+using HRCIS.SchemaLoader.Lists;
 
 namespace HRCIntegrationServices.WinUI
 {
-    public partial class frmMain : frmBase
+    public partial class FrmMain : FrmBase
     {
-        public frmMain()
+        public FrmMain()
         {
             InitializeComponent();
         }
 
-        private void frmMain_Load(object sender, EventArgs e)
+        private void FrmMainLoad(object sender, EventArgs e)
         {
             GetAllTables();
         }
@@ -33,10 +30,12 @@ namespace HRCIntegrationServices.WinUI
             }
         }
 
-        private void btnGenerate_Click(object sender, EventArgs e)
+        private void BtnGenerateClick(object sender, EventArgs e)
         {
             if (clstTables.CheckedItems == null)
+            {
                 return;
+            }
 
             if (chcClearQueries.Checked)
                 txtQueries.Text = string.Empty;
@@ -45,7 +44,7 @@ namespace HRCIntegrationServices.WinUI
             var schemaLoader = new SchemaLoader();
             foreach (var ob in clstTables.CheckedItems)
             {
-                schemaList.Add(schemaLoader.GetSchema((HRCTable)ob));
+                schemaList.Add(schemaLoader.GetSchema((HrcTable)ob));
             }
 
             if (chcInsert.Checked)
@@ -60,7 +59,7 @@ namespace HRCIntegrationServices.WinUI
                             + Environment.NewLine;
 
                         //generate
-                        txtQueries.Text += GenerateQuery(schemaData, new SQLQueryBuilder());
+                        txtQueries.Text += GenerateQuery(schemaData, new SqlQueryBuilder());
 
                         txtQueries.Text += Environment.NewLine +
                             string.Format("--SQL insert END {0}--", schemaData.Schema.TableName)
@@ -86,7 +85,7 @@ namespace HRCIntegrationServices.WinUI
             }//is insert
             if (chcDelete.Checked)
             {
-                InsertQueryBuilder deleteBuilder = new InsertQueryBuilder();
+                var deleteBuilder = new InsertQueryBuilder();
                 foreach (var schema in schemaList)
                 {
                     txtQueries.Text +=
@@ -102,11 +101,11 @@ namespace HRCIntegrationServices.WinUI
             }
             if (chcOracle.Checked && chcSeqTrg.Checked)
             {
-                OracleFunctionQueryBuilder oracleQBuilder = new OracleFunctionQueryBuilder();
+                var oracleQBuilder = new OracleFunctionQueryBuilder();
 
                 foreach (var schema in schemaList)
                 {
-                    HRCColumn identityColumn = schema.Columns.GetIdentityColumnIfExist();
+                    HrcColumn identityColumn = schema.Columns.GetIdentityColumnIfExist();
                     //seçili tablonun identity kolonu yoksa continue
                     if (identityColumn == null)
                         continue;
@@ -123,19 +122,19 @@ namespace HRCIntegrationServices.WinUI
             }
         }
 
-        private string GenerateQuery(HRCSchemaData schemaData, InsertQueryStrategy insertQueryStrategy)
+        private string GenerateQuery(HrcSchemaData schemaData, InsertQueryStrategy insertQueryStrategy)
         {
-            InsertQueryBuilder queryBuilder = new InsertQueryBuilder(insertQueryStrategy);
+            var queryBuilder = new InsertQueryBuilder(insertQueryStrategy);
             return queryBuilder.GenerateQuery(schemaData, chcExcludeIsIdentity.Checked);
         }
 
         private SchemaDataList GetSchemaDatas(SchemaList schemaList)
         {
-            DataLoader dataLoader = new DataLoader(schemaList);
+            var dataLoader = new DataLoader(schemaList);
             return dataLoader.GetSchemaDatas();
         }
 
-        private void chcCheckAll_CheckedChanged(object sender, EventArgs e)
+        private void ChcCheckAllCheckedChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < clstTables.Items.Count; i++)
             {
@@ -143,7 +142,7 @@ namespace HRCIntegrationServices.WinUI
             }
         }
 
-        private void chcCheckOrUncheck_CheckedChanged(object sender, EventArgs e)
+        private void ChcCheckOrUncheckCheckedChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < clstTables.Items.Count; i++)
             {
@@ -151,14 +150,16 @@ namespace HRCIntegrationServices.WinUI
             }
         }
 
-        private void chcOracle_CheckedChanged(object sender, EventArgs e)
+        private void ChcOracleCheckedChanged(object sender, EventArgs e)
         {
             if (!chcOracle.Checked)
+            {
                 chcSeqTrg.Checked = false;
+            }
             chcSeqTrg.Enabled = chcOracle.Checked;
         }
 
-        private void chcInsert_CheckedChanged(object sender, EventArgs e)
+        private void ChcInsertCheckedChanged(object sender, EventArgs e)
         {
             chcExcludeIsIdentity.Checked = chcInsert.Checked;
             chcExcludeIsIdentity.Enabled = chcInsert.Checked;

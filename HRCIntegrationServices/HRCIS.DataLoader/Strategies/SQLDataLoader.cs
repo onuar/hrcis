@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
+﻿using System.Data;
 using HRC.Library.DBAccessLayer;
-using HRC.Foundation.ConfigLibrary;
+using HRCIS.SchemaLoader.Entities;
 
-namespace HRCIS.DataLoader
+namespace HRCIS.DataLoader.Strategies
 {
-    public class SQLDataLoader : DataLoaderStrategy
+    public class SqlDataLoader : DataLoaderStrategy
     {
-        protected override DataTable GetSchemaDataInternal(SchemaLoader.HRCSchema schema)
+        protected override DataTable GetSchemaDataInternal(HrcSchema schema)
         {
             var dt = new DataTable();
             using (var db = new DbManager())

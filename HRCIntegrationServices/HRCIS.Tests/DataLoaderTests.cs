@@ -1,13 +1,12 @@
 ﻿using NUnit.Framework;
-using HRCIS.SchemaLoader;
 using HRC.Library.DBAccessLayer;
-
-using HRCIS.DataLoader;
+using System.Linq;
+using HRCIS.DataLoader.Entities;
+using HRCIS.DataLoader.Lists;
+using HRCIS.SchemaLoader.Lists;
 
 namespace HRCIS.Tests
 {
-    using System.Linq;
-
     [TestFixture]
     public class DataLoaderTests
     {
@@ -74,7 +73,7 @@ namespace HRCIS.Tests
 
             var loader = new DataLoader.DataLoader(schemas);
             SchemaDataList datas = loader.GetSchemaDatas();
-            HRCSchemaData sd = datas.GetSchemaDataByTableName(Tools.HrcTestTableName);
+            HrcSchemaData sd = datas.GetSchemaDataByTableName(Tools.HrcTestTableName);
             Assert.AreNotEqual(sd.Datas.Rows.Count, 0);
         }
     }

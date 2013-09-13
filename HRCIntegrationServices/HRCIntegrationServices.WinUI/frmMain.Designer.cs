@@ -1,6 +1,6 @@
 ﻿namespace HRCIntegrationServices.WinUI
 {
-    partial class frmMain
+    partial class FrmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -86,7 +86,7 @@
             this.chcCheckOrUncheck.TabIndex = 1;
             this.chcCheckOrUncheck.Text = "Check Reverse";
             this.chcCheckOrUncheck.UseVisualStyleBackColor = true;
-            this.chcCheckOrUncheck.CheckedChanged += new System.EventHandler(this.chcCheckOrUncheck_CheckedChanged);
+            this.chcCheckOrUncheck.CheckedChanged += new System.EventHandler(this.ChcCheckOrUncheckCheckedChanged);
             // 
             // chcCheckAll
             // 
@@ -98,7 +98,7 @@
             this.chcCheckAll.TabIndex = 1;
             this.chcCheckAll.Text = "Check All";
             this.chcCheckAll.UseVisualStyleBackColor = true;
-            this.chcCheckAll.CheckedChanged += new System.EventHandler(this.chcCheckAll_CheckedChanged);
+            this.chcCheckAll.CheckedChanged += new System.EventHandler(this.ChcCheckAllCheckedChanged);
             // 
             // chcSql
             // 
@@ -130,7 +130,7 @@
             this.chcOracle.TabIndex = 2;
             this.chcOracle.Text = "Oracle";
             this.chcOracle.UseVisualStyleBackColor = true;
-            this.chcOracle.CheckedChanged += new System.EventHandler(this.chcOracle_CheckedChanged);
+            this.chcOracle.CheckedChanged += new System.EventHandler(this.ChcOracleCheckedChanged);
             // 
             // btnGenerate
             // 
@@ -140,7 +140,7 @@
             this.btnGenerate.TabIndex = 4;
             this.btnGenerate.Text = "Query Generate >>>";
             this.btnGenerate.UseVisualStyleBackColor = true;
-            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
+            this.btnGenerate.Click += new System.EventHandler(this.BtnGenerateClick);
             // 
             // groupBox3
             // 
@@ -197,7 +197,7 @@
             this.chcInsert.TabIndex = 2;
             this.chcInsert.Text = "Insert";
             this.chcInsert.UseVisualStyleBackColor = true;
-            this.chcInsert.CheckedChanged += new System.EventHandler(this.chcInsert_CheckedChanged);
+            this.chcInsert.CheckedChanged += new System.EventHandler(this.ChcInsertCheckedChanged);
             // 
             // chcCreate
             // 
@@ -256,9 +256,9 @@
             this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "frmMain";
+            this.Name = "FrmMain";
             this.Text = "HRC Integration Services";
-            this.Load += new System.EventHandler(this.frmMain_Load);
+            this.Load += new System.EventHandler(this.FrmMainLoad);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

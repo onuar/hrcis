@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using HRCIS.SchemaLoader.Entities;
 
-namespace HRCIS.SchemaLoader
+namespace HRCIS.SchemaLoader.Lists
 {
-    public class ColumnList : List<HRCColumn>
+    public class ColumnList : List<HrcColumn>
     {
-        public HRCColumn GetColumnByColumnName(string columnName)
+        public HrcColumn GetColumnByColumnName(string columnName)
         {
-            foreach (var c in this)
-            {
-                if (c.ColumnName == columnName)
-                    return c;
-            }
-            return null;
+            return this.FirstOrDefault(c => c.ColumnName == columnName);
         }
 
-        public HRCColumn GetIdentityColumnIfExist()
+        public HrcColumn GetIdentityColumnIfExist()
         {
-            foreach (var c in this)
-            {
-                if (c.IsIdentity)
-                    return c;
-            }
-            return null;
+            return this.FirstOrDefault(c => c.IsIdentity);
         }
     }
 }

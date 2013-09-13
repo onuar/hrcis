@@ -1,28 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using HRCIS.DataLoader;
-using HRCIS.SchemaLoader;
 using HRC.Foundation.ConvertionLibrary;
 using System.Data;
+using HRCIS.DataLoader.Entities;
+using HRCIS.SchemaLoader.Entities;
+using HRCIS.SchemaLoader.Enums;
 
-namespace HRCIS.QueryBuilder
+namespace HRCIS.QueryBuilder.Insert
 {
     public abstract class InsertQueryStrategy
     {
-        private string GetDeclareName(HRCColumn column)
+        private string GetDeclareName(HrcColumn column)
         {
             return string.Format("{0}Variable{1}"
-                , GetDataTypeMap(column.ColumnDataType)
+                , this.GetDataTypeMap(column.ColumnDataType)
                 , column.ColumnName);
         }
 
-        public virtual string GenerateQuery(HRCSchemaData data, bool excludeIdentityColumn = false)
+        public virtual string GenerateQuery(HrcSchemaData data, bool excludeIdentityColumn = false)
         {
-            var strColumns = new StringBuilder();
-            var strValues = new StringBuilder();
-            var strDeclare = new StringBuilder();
+            StringBuilder values;
+            var columnNames = new StringBuilder();
+            var declares = new StringBuilder();
 
             bool existDeclareType = false;
 
@@ -31,18 +30,18 @@ namespace HRCIS.QueryBuilder
                 if (excludeIdentityColumn
                     && col.IsIdentity)
                     continue;
-                strColumns.Append(col.ColumnName + ",");
+                columnNames.Append(col.ColumnName + ",");
 
-                if (IsDeclareType(col.ColumnDataType))
+                if (this.IsDeclareType(col.ColumnDataType))
                 {
-                    strDeclare.Append(string.Format("DECLARE {0} {1};\n"
-                        , GetDeclareName(col)
-                        , GetDataTypeMap(col.ColumnDataType)));
+                    declares.Append(string.Format("DECLARE {0} {1};\n"
+                        , this.GetDeclareName(col)
+                        , this.GetDataTypeMap(col.ColumnDataType)));
 
                     existDeclareType = true;
                 }
             }
-            string columns = strColumns.ToString().TrimEnd(',');
+            string columns = columnNames.ToString().TrimEnd(',');
 
             string query = string.Empty;
             string queries = string.Empty;
@@ -52,7 +51,7 @@ namespace HRCIS.QueryBuilder
             foreach (DataRow row in data.Datas.Rows)
             {
                 query = string.Empty;
-                strValues = new StringBuilder();
+                values = new StringBuilder();
                 strDeclareValues = new StringBuilder();
 
                 foreach (var col in data.Schema.Columns)
@@ -62,20 +61,20 @@ namespace HRCIS.QueryBuilder
                         continue;
 
                     object val = row[col.ColumnName];
-                    bool hasApos = HasApostrophe(col.ColumnDataType);
+                    bool hasApos = this.HasApostrophe(col.ColumnDataType);
 
                     if (val == null || val == DBNull.Value)
                     {
-                        strValues.Append("NULL,");
+                        values.Append("NULL,");
                     }
                     else
                     {//value is not null
-                        if (IsDeclareType(col.ColumnDataType))
+                        if (this.IsDeclareType(col.ColumnDataType))
                         {
-                            strValues.Append(GetDeclareName(col) + ",");
+                            values.Append(this.GetDeclareName(col) + ",");
 
                             strDeclareValues.Append(
-                                GetDeclareName(col) + " := "
+                                this.GetDeclareName(col) + " := "
                                 + (hasApos ? "'" + val + "'" : val.ToString())
                                 + ";\n"
                                 );
@@ -84,33 +83,33 @@ namespace HRCIS.QueryBuilder
                         {
                             switch (col.ColumnDataType)
                             {
-                                case SchemaLoader.DataType.BOOLEAN:
-                                    val = ConvertToDbBooleanValue(ConvertionHelper.ConvertValue<bool>(val));
+                                case DataType.BOOLEAN:
+                                    val = this.ConvertToDbBooleanValue(ConvertionHelper.ConvertValue<bool>(val));
                                     break;
-                                case SchemaLoader.DataType.DATETIME:
-                                    val = ConvertToDbDateTimeValue(ConvertionHelper.ConvertValue<DateTime>(val));
+                                case DataType.DATETIME:
+                                    val = this.ConvertToDbDateTimeValue(ConvertionHelper.ConvertValue<DateTime>(val));
                                     break;
-                                case SchemaLoader.DataType.STRING:
-                                    val = ConvertToDbStringValue(ConvertionHelper.ConvertValue<string>(val));
+                                case DataType.STRING:
+                                    val = this.ConvertToDbStringValue(ConvertionHelper.ConvertValue<string>(val));
                                     break;
-                                case SchemaLoader.DataType.FLOAT:
-                                    val = ConvertToDbFloatValue(ConvertionHelper.ConvertValue<float>(val));
+                                case DataType.FLOAT:
+                                    val = this.ConvertToDbFloatValue(ConvertionHelper.ConvertValue<float>(val));
                                     break;
-                                case SchemaLoader.DataType.DECIMAL:
-                                    val = ConvertToDbDecimalValue(ConvertionHelper.ConvertValue<decimal>(val));
+                                case DataType.DECIMAL:
+                                    val = this.ConvertToDbDecimalValue(ConvertionHelper.ConvertValue<decimal>(val));
                                     break;
-                                case SchemaLoader.DataType.Money:
-                                    val = ConvertToDbMoneyValue(ConvertionHelper.ConvertValue<decimal>(val));
+                                case DataType.Money:
+                                    val = this.ConvertToDbMoneyValue(ConvertionHelper.ConvertValue<decimal>(val));
                                     break;
                                 case DataType.GUID:
-                                    val = ConvertToDbGuidValue(ConvertionHelper.ConvertValue<Guid>(val));
+                                    val = this.ConvertToDbGuidValue(ConvertionHelper.ConvertValue<Guid>(val));
                                     break;
                                 default:
-                                    val = ConvertToDefaultValue(ConvertionHelper.ConvertValue<string>(val));
+                                    val = this.ConvertToDefaultValue(ConvertionHelper.ConvertValue<string>(val));
                                     break;
                             }
 
-                            strValues.Append(
+                            values.Append(
                                 (hasApos ? "'" + val + "'" : val.ToString())
                                 + ",");
                         }
@@ -126,7 +125,7 @@ namespace HRCIS.QueryBuilder
                     "\ninsert into {0} ({1}) values({2});"
                     , data.Schema.TableName
                     , columns
-                   , strValues.ToString().TrimEnd(','));
+                   , values.ToString().TrimEnd(','));
 
                 queries += " " + query;
             }
@@ -134,7 +133,7 @@ namespace HRCIS.QueryBuilder
             if (existDeclareType)
             {
                 queries = string.Format("{0} BEGIN \n" + queries + "\nEND;"
-                    , strDeclare);
+                    , declares);
             }
 
             return queries;

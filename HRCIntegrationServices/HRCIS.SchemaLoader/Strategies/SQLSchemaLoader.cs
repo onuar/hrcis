@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using HRC.Foundation.ConvertionLibrary;
 using HRC.Library.DBAccessLayer;
 using System.Data.Common;
 using HRC.Library.DBAccessLayer.Parameters;
+using HRCIS.SchemaLoader.Entities;
+using HRCIS.SchemaLoader.Enums;
+using HRCIS.SchemaLoader.Lists;
 
-namespace HRCIS.SchemaLoader
+namespace HRCIS.SchemaLoader.Strategies
 {
-    public class SQLSchemaLoader : ISchemaLoaderStrategy
+    public class SqlSchemaLoader : ISchemaLoaderStrategy
     {
-        public DataType GetHRCDataType(string columnDataType)
+        public DataType GetHrcDataType(string columnDataType)
         {
             columnDataType = columnDataType.ToLower();
             switch (columnDataType)
@@ -55,15 +55,15 @@ namespace HRCIS.SchemaLoader
 
         public TableList GetTableList()
         {
-            TableList tableList = new TableList();
+            var tableList = new TableList();
 
-            using (DbManager db = new DbManager() { KeepConnection = true })
+            using (var db = new DbManager() { KeepConnection = true })
             {
                 using (DbDataReader dr = db.ExecuteReader("select * from information_schema.tables Order By TABLE_NAME"))
                 {
                     while (dr.Read())
                     {
-                        HRCTable tbl = new HRCTable()
+                        var tbl = new HrcTable()
                         {
                             TableName = ConvertionHelper.ConvertValue<string>(dr["TABLE_NAME"])
                         };
@@ -77,18 +77,18 @@ namespace HRCIS.SchemaLoader
             return tableList;
         }
 
-        public HRCSchema GetSchema(HRCTable table)
+        public HrcSchema GetSchema(HrcTable table)
         {
-            ColumnList columns = new ColumnList();
+            var columns = new ColumnList();
 
-            using (DbManager db = new DbManager())
+            using (var db = new DbManager())
             {
                 db.Parameters.Clear();
                 db.Parameters.Add(
                     new HRCParameter(
                         "tblName"
                         , table.TableName
-                        , HRC.Library.DBAccessLayer.Parameters.HRCParameterType.STRING));
+                        , HRCParameterType.STRING));
 
                 using (DbDataReader drc =
                     db.ExecuteReader(@"
@@ -100,9 +100,8 @@ namespace HRCIS.SchemaLoader
                 {
                     while (drc.Read())
                     {
-                        columns.Add(new HRCColumn()
-                        {
-                            ColumnDataType = ConvertionHelper.ConvertValue<DataType>(GetHRCDataType(drc["DATA_TYPE"].ToString()))
+                        columns.Add(new HrcColumn {
+                            ColumnDataType = ConvertionHelper.ConvertValue<DataType>(this.GetHrcDataType(drc["DATA_TYPE"].ToString()))
                             ,
                             ColumnName = ConvertionHelper.ConvertValue<string>(drc["COLUMN_NAME"])
                                 //,
@@ -113,7 +112,7 @@ namespace HRCIS.SchemaLoader
                     }
                 }
 
-                HRCSchema schema = new HRCSchema();
+                var schema = new HrcSchema();
                 schema.TableName = table.TableName;
                 schema.Columns = columns;
 
